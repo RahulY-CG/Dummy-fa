@@ -28,13 +28,11 @@ jobs:
           pip3 install -r requirements.txt --target=".python_packages/lib/site-packages"
           popd
 
-      - name: Azure login
+      - name: Azure Login action
         uses: azure/login@v2
         with:
-         auth-type: IDENTITY
-         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-         enable-AzPSSession: true
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          enable-AzPSSession: true
 
       - name: 'Deploy to Azure Function App'
         uses: Azure/functions-action@v1
