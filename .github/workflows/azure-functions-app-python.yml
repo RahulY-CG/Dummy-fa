@@ -8,7 +8,8 @@ on:
 env:
   AZURE_FUNCTIONAPP_NAME: 'fatest'   # set this to your function app name on Azure
   AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'       
-
+permissions:
+  contents: read
 jobs:
   build-and-deploy:
     runs-on: self-hosted
