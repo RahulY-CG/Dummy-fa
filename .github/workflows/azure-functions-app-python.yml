@@ -1,4 +1,4 @@
-name: Deploy Python project to Azure Function App to test
+name: Deploy Python project to Azure Function App to check
 
 on:
   push:
