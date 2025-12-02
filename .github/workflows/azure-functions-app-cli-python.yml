@@ -25,12 +25,13 @@ jobs:
         run: |
           cd "${{ vars.AZURE_FUNCTIONAPP_PACKAGE_PATH }}"
           zip -r ../functionapp-package.zip .
+          mv functionapp-package.zip ../functionapp-package.zip
       
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: functionapp-package
-          path: "${{ vars.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/functionapp-package.zip"
+          path: ./functionapp-package.zip
 
 
 
