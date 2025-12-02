@@ -45,6 +45,12 @@ jobs:
         with:
           name: functionapp-package
           path: ${{ vars.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+      - name: List downloaded files
+        shell: bash
+        run: |
+          echo "Contents of ${{ vars.AZURE_FUNCTIONAPP_PACKAGE_PATH }}:"
+          ls -lh ${{ vars.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+
 
       - name: Azure Login
         uses: azure/login@v2
