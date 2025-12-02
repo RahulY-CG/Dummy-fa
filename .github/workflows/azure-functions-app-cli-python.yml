@@ -30,7 +30,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: functionapp-package
-          path: functionapp-package.zip
+          path: "${{ vars.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/functionapp-package.zip"
+
 
 
   deploy:
