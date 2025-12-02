@@ -4,10 +4,6 @@ on:
   push:
     branches: ["main"]
 
-env:
-  AZURE_FUNCTIONAPP_NAME: 'fatest'
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.'
-
 jobs:
   build:
     runs-on: self-hosted
@@ -19,7 +15,7 @@ jobs:
       - name: Install dependencies
         shell: bash
         run: |
-          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
+          pushd './${{ vars.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
           python3 -m pip install --upgrade pip
           pip3 install -r requirements.txt --target=".python_packages/lib/site-packages"
           popd
@@ -28,7 +24,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: functionapp-package
-          path: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          path: ${{ vars.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
 
   deploy:
     runs-on: self-hosted
@@ -39,7 +35,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: functionapp-package
-          path: .
+          path: ${{ vars.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
 
       - name: Azure Login
         uses: azure/login@v2
@@ -50,7 +46,7 @@ jobs:
       - name: Deploy to Azure Function App
         uses: Azure/functions-action@v1
         with:
-          app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          app-name: ${{ vars.AZURE_FUNCTIONAPP_NAME }}
+          package: ${{ vars.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
           scm-do-build-during-deployment: true
           enable-oryx-build: true
